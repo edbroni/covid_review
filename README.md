@@ -1,4 +1,4 @@
-Link to Webapp https://world-bank-dashboard-api.herokuapp.com
+Link to Webapp https://covid-views.herokuapp.com/
 # Covid Thoughts Blog Post Data Dashboard
 
 ## Introduction

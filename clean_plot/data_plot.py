@@ -17,10 +17,10 @@ def equalize_data(data1, data2, data3='none'):
 
     try:
         return result.iloc[:,0].values, result.iloc[:,1].values, \
-               result.index.to_list(), result.iloc[:,2].values
+               list(result.index), result.iloc[:,2].values
     except:
         return result.iloc[:,0].values, result.iloc[:,1].values, \
-               result.index.to_list()
+               list(result.index)
 
 def extract_data(dataframe,column,group,operation):
     '''Function to extract a column from a pandas DataFrame and perform a group
