@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <title>Some analysis on COVID-19</title>
+</head>
+
+<body>
+
+ <main class='container'>
+
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="link-secondary" href="#">Subscribe</a>
+      </div>
+      <div class="col-4 text-center">
+        <p class="blog-header-logo text-dark">Explorations in data science</p>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="link-secondary" href="#" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+        </a>
+        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <article class="blog-post">
+       <h2 class="blog-post-title">Some thoughts about Covid-19</h2>
+       <p class="blog-post-meta">February 23, 2021 by <a href="#">Edgar</a></p>
+       <hr>
+       <p>The COVID-19 is a new spread of a virus, originating in China that has been 
+causing a great number of victims around the world. It's not impossible to 
+imagine that the majority of world population know about the pandemic
+and unfortunately were affected by it in some way.</p>
+       <p>In this pandemic scenario, we could ask ourseleves how the chinese disease 
+affect the countries around the world. Is there a bias in COVID-19 cases and 
+deaths? Will countries with better economic conditions suffer less than the
+other? Will the countries that performed the most tests get lower mortality 
+rates?</p>
+       <p> Fortunately the information about this pandemic is easy to find on the 
+internet. Here are some dashboards links:</p>
+       <ul>
+         <li> <a href=https://coronavirus.jhu.edu/map.html>Johns Hopkins COVID-19</a></li>
+         <li> <a href=https://ourworldindata.org/coronavirus>Our World in data</a></li>
+         <li> <a href=https://covid.cdc.gov/covid-data-tracker/#datatracker-home>
+Center for disease Control and Prevention - USA</a></li>
+         <li> <a href=https://covid.saude.gov.br/>Coronavirus Brasil</a></li>
+       </ul>
+
+      <p>Below are the links to some databases:</p>
+      <ul>
+        <li><a href=https://github.com/CSSEGISandData/COVID-19>
+Johns Hopkins COVID-19 Data Repository</a></li>
+        <li><a href=https://github.com/owid/covid-19-data/tree/master/public/data>
+Our World in Data -repository</a></li>
+        <li><a href=https://opendatasus.saude.gov.br/>
+Open Data SUS - Brasil data repository</a></li>
+      </ul>
+
+     <p> The first 2 database links aggregate data from different sources and show 
+global data. The last link contains data from Brazil only. The granularity in 
+these examples is the same, daily notifications, but we hope to find more 
+specific information in national databases than in the global database. </p>
+
+      <p>We started to dive into the Johns Hopkins and Our World in Data sources and 
+we decided to use the Our World in Data (owid) database because the aggregation  
+of economic information, shows easy access of field descriptions, <mark>
+<a href=https://github.com/owid/covid-19-data/blob/master/public/data/owid-covid-codebook.csv>
+source</a></mark> of field and could answer the questions made.</p>
+
+       <h3>Answering the questions</h3>
+
+       <p>First, just plotting the graph of COVID-19 new cases by day for world 
+notifications.</p>
+
+            <div class="row">
+                <div class="col-12">
+                    <div id="{{ids[0]}}"></div>
+                    <footer class="text-sm-center">Fig. 1 - World new cases smoothed</footer>
+                </div>
+            </div>
+      <br>
+      <p>The first analysis will be the GDP per capita x cases per million, for which
+ the data will be grouped by countries (fig 2). There is a point out of the curve
+ and represents the USA, which has a high GDP and a greate number of cases. As the 
+number of cases and GDP by country is very different, the graph is repeated with
+logarithm of the variables (fig.3).</p>
+
+            <div class="row">
+                <div class="col-6">
+                    <div id="{{ids[1]}}"></div>
+                    <footer class="text-sm-center">Fig. 2 - GDP per capita x 
+Cases per million</footer>
+                </div>
+                <div class="col-6">
+                    <div id="{{ids[2]}}"></div>
+                    <footer class="text-sm-center">Fig. 3 - GDP per capita (log)
+ x Cases per million (log)</footer>
+                </div>
+            </div>
+      <br>
+      <p>It's not possible to observe any trend on the data until the logxlog graph is
+observed. With the fig. 3 is possible to observe a trend indicating the increase of
+cases with the increase os GDP per capita.</p>
+
+      <p>Now analizing cases per milion x development human index (DHI) (fig. 4 and 5)
+ it is necessary to apply the logarithm in the attribute cases per milion due the 
+variation of the number of cases between countries. In this graph the trend is 
+for an increase in cases with an increase in DHI.</p>
+
+            <div class="row">
+                <div class="col-6">
+                    <div id="{{ids[3]}}"></div>
+                    <footer class="text-sm-center">Fig. 4 - Development Human 
+Index x Cases per million</footer>
+                </div>
+                <div class="col-6">
+                    <div id="{{ids[4]}}"></div>
+                    <footer class="text-sm-center">Fig. 5 - Development Human 
+Index x Cases per million (log)</footer>
+                </div>
+            </div>
+      <br>
+      <p>Looking at the graphs of deaths per million x  GDP per capita (fig.6) and deaths
+ per million x DHI (fig.7) there is the same positive correlation trend at first
+ glance (again deaths per million and GDP per capita are displayed after log).</p>
+            <div class="row">
+                <div class="col-6">
+                    <div id="{{ids[5]}}"></div>
+                    <footer class="text-sm-center">Fig. 6 - GDP per capita (log)
+ x Deaths per million (log)</footer>
+                </div>
+                <div class="col-6">
+                    <div id="{{ids[6]}}"></div>
+                    <footer class="text-sm-center">Fig. 7 - Development Human 
+Index x Deaths per million (log)</footer>
+                </div>
+            </div>
+      <br>
+       <p>The data about tests applyed are displayed in fig. 8 and 9. The first information 
+retrieved is that, in general, rich countries applied more tests than the poorest
+ countries. The second information is a conclusion of figs. 3, 6 and 8, the large
+ number of tests didn't mean a low number of cases and low number of deaths.</p>
+
+            <div class="row">
+                <div class="col-12">
+                    <div id="{{ids[7]}}"></div>
+                    <footer class="text-sm-center">Fig. 8 - Applied Covid-19 
+tests (log) x Cases per million (log)</footer>
+                </div>
+                <div class="col-12">
+                    <div id="{{ids[8]}}"></div>
+                    <footer class="text-sm-center">Fig. 9 - Applied Covid-19 
+tests (log) x Deaths per million (log)</footer>
+                </div>
+            </div>
+      <br>
+       <p>One last question that can be asked (among several) concerns the correlation 
+between population density and cases of COVID, it is expected that countries with
+ a high DHI have a high population concentration and a high DHI indicates a high
+ number of cases of COVID-19, ie analyzed in fig. 9. According to this 
+information, it is not possible to observe correlations between population density
+ and COVID-19 cases.</p>
+
+              <div class="row">
+                <div class="col-12">
+                    <div id="{{ids[9]}}"></div>
+                    <footer class="text-sm-center">Fig. 9 - Populational density
+ x Cases per million (log)</footer>
+                </div>
+              </div>
+      <br>
+       <p>Although the analysis of fig.9, we cannot assure there is a lack of 
+correlation between populational density and Covid cases because we had made 
+analysis in a country scale and can occur a situation of concentration of people
+ in few cities in a large country.</p>
+
+       <hr>
+
+       <h3>Conclusions</h3>
+       <p>With this small study we can answer the proposed questions:</p>
+       <ul id='list_unstyled'>
+         <li> The number of cases and deaths (per million) is, in general, high 
+in countries with high GDP per capita and high HDI, there is a bias;</li>
+        <li> Rich countries were more affected by COVID-19 than the poorest (in 
+number of cases and deaths per million);</li>
+         <li> In general, the application of tests did not result in the reduction
+ of cases and deaths of Covid-19. </li>
+       </ul>
+       <hr>
+       <br>
+       <p>Some points could be better investigate, some conclusions are not the 
+main stream. It's missing something? Do you have some ideas to  further 
+investigate? Just let me know!</p>
+       <br>
+       <hr>
+
+      </article><!-- /.blog-post -->
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" 
+aria-disabled="true">Newer</a>
+      </nav>
+
+   </div>
+
+    <div class="col-md-4">
+      <div class="p-4 mb-3 bg-light rounded">
+        <h4 class="fst-italic">About</h4>
+        <p>Hi, I'm Edgar and this is a place to me to play with data and 
+understanding better some point of view.</p>
+         <blockquote>
+         <br>
+          <p>"In GOD we trust, all others must bring data"</p>
+          <cite>Deming, W. Edwards</cite>
+         </blockquote>
+      </div>
+
+      <div class="p-4">
+        <h4 class="fst-italic">Archives</h4>
+        <ol class="list-unstyled mb-0">
+          <li><a href="#">February 2021</a></li>
+        </ol>
+      </div>
+
+      <div class="p-4">
+        <h4 class="fst-italic">Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://github.com/edbroni">GitHub</a></li>
+          <!--li><a href="#">Twitter</a></li>    -->
+          <!--li><a href="#">Facebook</a></li>   -->
+        </ol>
+      </div>
+
+    </div>
+
+  </div>
+
+ </main>
+</body>
+
+<footer class="col-12 text-center">
+  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a> and adapted by me</p>
+  <p>
+    <a href="#">Back to top</a>
+  </p>
+
+    <script type="text/javascript">
+        // plots the figure with id
+        // id much match the div id above in the html
+        var figures = {{figuresJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in figures) {
+            Plotly.plot(ids[i],
+                figures[i].data,
+                figures[i].layout || {});
+        }
+    </script>
+
+</footer>
+
+
+    
+</html>
